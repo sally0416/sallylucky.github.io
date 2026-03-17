@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刘凌浩 | 品牌系统策划与文化创新</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Serif+SC:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text-main: #1a1a1a;
+            --text-sub: #666666;
+            --accent: #b33a2a; /* 提取自你作品集的橙红色调 */
+            --spacing: 40px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'PingFang SC', sans-serif; background: var(--bg); color: var(--text-main); line-height: 1.7; }
+
+        /* 响应式布局 */
+        .container { display: flex; min-height: 100vh; }
+        
+        /* 左侧栏 - 个人信息 */
+        aside {
+            width: 35%;
+            padding: var(--spacing);
+            position: fixed;
+            height: 100vh;
+            border-right: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .profile h1 { font-family: 'Noto Serif SC', serif; font-size: 2.5rem; margin-bottom: 10px; }
+        .tagline { font-size: 1.1rem; color: var(--accent); font-weight: 600; margin-bottom: 30px; letter-spacing: 1px; }
+        .manifesto { font-size: 0.95rem; color: var(--text-sub); max-width: 300px; }
+
+        /* 右侧栏 - 内容 */
+        main { width: 65%; margin-left: 35%; padding: var(--spacing); }
+        
+        section { margin-bottom: 80px; }
+        h2 { font-family: 'Noto Serif SC', serif; font-size: 1.8rem; margin-bottom: 30px; border-bottom: 2px solid var(--text-main); display: inline-block; }
+
+        /* 案例排版 */
+        .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .case-item { margin-bottom: 20px; transition: 0.3s; cursor: pointer; }
+        .case-item:hover { opacity: 0.8; }
+        .case-img { background: #f5f5f5; aspect-ratio: 16/9; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #ccc; }
+        .case-title { font-weight: 600; font-size: 1rem; }
+        .case-desc { font-size: 0.85rem; color: var(--text-sub); }
+
+        /* 经历排版 */
+        .exp-item { margin-bottom: 40px; }
+        .exp-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+        .exp-company { font-weight: 600; font-size: 1.1rem; }
+        .exp-date { font-size: 0.85rem; color: var(--text-sub); }
+        .exp-role { color: var(--accent); font-size: 0.9rem; font-weight: 600; margin-bottom: 10px; }
+        .exp-list { font-size: 0.9rem; color: var(--text-sub); list-style: none; }
+        .exp-list li::before { content: "— "; color: #ddd; }
+
+        /* 数字分身按钮 */
+        .ai-fab {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: var(--text-main);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        .ai-fab:hover { transform: translateY(-5px); background: var(--accent); }
+
+        @media (max-width: 900px) {
+            .container { flex-direction: column; }
+            aside { width: 100%; position: relative; height: auto; border-right: none; border-bottom: 1px solid #eee; }
+            main { width: 100%; margin-left: 0; }
+            .case-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <aside>
+        <div class="profile">
+            <h1>刘凌浩</h1>
+            <p class="tagline">品牌策划 · 文化创新 · 系统建设</p>
+            <p class="manifesto">
+                10年+ 品牌深度实践者。擅长从 0 到 1 构筑品牌护城河，将企业文化转化为可感知的商业资产。深耕生物医药与高科技领域，致力于为专业内容寻找最具张力的表达。
+            </p>
+        </div>
+        <div class="contact">
+            <p style="font-size: 0.85rem; color: #999;">
+                📍 苏州<br>
+                📧 liu_linghao@sina.com<br>
+                📞 18251112006
+            </p>
+        </div>
+    </aside>
+
+    <main>
+        <section id="works">
+            <h2>精选案例 / Selected Works</h2>
+            <div class="case-grid">
+                <div class="case-item">
+                    <div class="case-img">网站 0-1 打造案例</div>
+                    <div class="case-title">艾玮得生物品牌官网</div>
+                    <div class="case-desc">架构规划、内容撰写及 SEO 优化 [cite: 9]</div>
+                </div>
+                <div class="case-item">
+                    <div class="case-img">展厅规划案例</div>
+                    <div class="case-title">智能设备展厅完整策划</div>
+                    <div class="case-desc">从动线设计到演讲员培养的全闭环 [cite: 9]</div>
+                </div>
+                <div class="case-item">
+                    <div class="case-img">直播策划案例</div>
+                    <div class="case-title">“芯”闻联播系列直播</div>
+                    <div class="case-desc">联合学术 KOL 挖掘潜在销售线索 [cite: 9, 140, 141]</div>
+                </div>
+                <div class="case-item">
+                    <div class="case-img">全国巡展案例</div>
+                    <div class="case-title">科达全国行业会议巡展</div>
+                    <div class="case-desc">跨越 27 分公司的品牌标准化执行 [cite: 138]</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>专业历程 / Experience</h2>
+            
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-company">江苏艾玮得生物科技有限公司</span>
+                    <span class="exp-date">2023.05 - 至今</span>
+                </div>
+                <div class="exp-role">品宣经理</div>
+                <ul class="exp-list">
+                    <li>定位企业传播亮点，确立品牌核心方针 [cite: 1, 31]</li>
+                    <li>拓展全媒体矩阵（公众号、知乎、B站等）提升学术知名度 [cite: 2, 32]</li>
+                    <li>提炼核心卖点，打造产品包装美学体系 [cite: 3, 36]</li>
+                </ul>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-company">诺一迈尔(苏州)医学科技有限公司</span>
+                    <span class="exp-date">2021.03 - 2023.05</span>
+                </div>
+                <div class="exp-role">品牌企划负责人</div>
+                <ul class="exp-list">
+                    <li>0-1 打造公司高端品牌形象，建立完整 VIS 标准 [cite: 3, 48, 49]</li>
+                    <li>构建以价值观为核心的企业文化体系 [cite: 4, 52]</li>
+                    <li>创新推行文化积分与激励荣誉体系 [cite: 5, 53]</li>
+                </ul>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-company">苏州科达科技股份有限公司</span>
+                    <span class="exp-date">2012.02 - 2019.02</span>
+                </div>
+                <div class="exp-role">活动策划经理</div>
+                <ul class="exp-list">
+                    <li>管理每年 3 场以上大型特装及海外展会 [cite: 8, 91]</li>
+                    <li>协调分公司与媒体资源，推动全国渠道推广 [cite: 8, 85, 93]</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>品牌方法论 / Methodology</h2>
+            <p style="font-size: 0.95rem; color: var(--text-sub);">
+                品牌系统策划 | 文化创新建设 | 营销活动制定 | 内容卖点提炼 | 媒体矩阵搭建 [cite: 1, 17, 18, 19, 21, 24]
+            </p>
+        </section>
+    </main>
+</div>
+
+<a href="YOUR_COZE_AGENT_URL" class="ai-fab" target="_blank">
+    🧠 访问我的数字分身 (AI Agent)
+</a>
+
+</body>
+</html>
