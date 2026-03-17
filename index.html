@@ -11,27 +11,29 @@
             --text-main: #1a1a1a;
             --text-sub: #4a4a4a;
             --accent: #b33a2a; 
-            /* 弥散光核心色 */
-            --glow-color-1: rgba(179, 58, 42, 0.3); 
-            --glow-color-2: rgba(138, 43, 226, 0.2);
+            /* 弥散色调：微调了透明度，让弥散感更通透 */
+            --glow-1: rgba(179, 58, 42, 0.22); 
+            --glow-2: rgba(138, 43, 226, 0.12);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; } /* 实现平滑滚动 */
+        html { scroll-behavior: smooth; }
         body { font-family: 'Inter', 'PingFang SC', sans-serif; background: var(--bg); color: var(--text-main); line-height: 1.8; overflow-x: hidden; }
 
-        /* 鼠标追踪弥散背景 - 范围缩小1/3 (从350px缩小至230px) */
+        /* 鼠标追踪弥散背景 - 直径进一步缩小，并优化边缘过渡以消除凝聚感 */
         #interactive-bg {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: -1; pointer-events: none;
-            background: radial-gradient(230px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), 
-                        var(--glow-color-1) 0%, 
-                        var(--glow-color-2) 40%, 
-                        rgba(255,255,255,0) 80%);
+            /* 150px 范围，颜色从 0% 开始缓慢向 100% 消失，形成虚幻的弥散感 */
+            background: radial-gradient(150px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), 
+                        var(--glow-1) 0%, 
+                        var(--glow-2) 30%, 
+                        rgba(255,255,255,0) 100%);
         }
 
         .container { display: flex; min-height: 100vh; }
         
+        /* 侧边栏保持 */
         aside {
             width: 30%; padding: 50px; position: fixed; height: 100vh;
             border-right: 1px solid rgba(0,0,0,0.05); background: rgba(255,255,255,0.85);
@@ -45,7 +47,7 @@
         .profile h1 { font-family: 'Noto Serif SC', serif; font-size: 2.2rem; margin-bottom: 5px; }
         .tagline { font-size: 0.95rem; color: var(--accent); font-weight: 600; margin-bottom: 25px; letter-spacing: 1px; }
 
-        /* 恢复的左侧导航栏 */
+        /* 导航菜单 */
         .nav-menu { list-style: none; margin-bottom: 40px; }
         .nav-menu li { margin-bottom: 12px; }
         .nav-menu a { 
@@ -60,11 +62,13 @@
         .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
         .tag { background: rgba(0,0,0,0.03); padding: 3px 10px; border-radius: 2px; font-size: 0.8rem; color: var(--text-sub); border: 1px solid rgba(0,0,0,0.05); }
 
+        /* 主体内容 */
         main { width: 70%; margin-left: 30%; padding: 50px 8%; }
         section { margin-bottom: 100px; padding-top: 20px; }
         h2 { font-family: 'Noto Serif SC', serif; font-size: 1.6rem; margin-bottom: 40px; border-bottom: 1px solid #eee; padding-bottom: 10px; position: relative; }
         h2::after { content: ''; position: absolute; left: 0; bottom: -1px; width: 50px; height: 3px; background: var(--accent); }
 
+        /* 经历区块 */
         .exp-block { margin-bottom: 60px; }
         .exp-title-row { display: flex; justify-content: space-between; align-items: baseline; }
         .company-name { font-size: 1.25rem; font-weight: 700; color: #000; }
@@ -74,7 +78,7 @@
         .duty-list li { font-size: 0.95rem; margin-bottom: 12px; position: relative; padding-left: 20px; text-align: justify; }
         .duty-list li::before { content: "•"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
 
-        /* 案例多图展示逻辑 */
+        /* 作品案例 */
         .case-card { border: 1px solid rgba(0,0,0,0.06); border-radius: 12px; margin-bottom: 30px; background: rgba(255,255,255,0.6); overflow: hidden; transition: 0.4s; }
         .case-header { padding: 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
         .case-header:hover { background: rgba(0,0,0,0.02); }
@@ -156,9 +160,9 @@
                 <ul class="duty-list">
                     <li>发掘并精准定位企业传播亮点，确立品牌核心发展方针。策划实施全面品牌建设计划，通过形象识别系统刷新加强市场印象；</li>
                     <li>拓展全媒体矩阵（公众号、视频号、网站、知乎、B站等），深度维护行业关系，显著提高药企、科研及医院认知度；</li>
-                    <li>根据战略规划进行内容主题规划与关键词优化（SEO），确保专业性内容每周定时、稳定输出，提高搜索能见度；</li>
-                    <li>制定年度活动计划，结合品牌推广与学术活动，有效挖掘潜在销售线索；</li>
-                    <li>更新展厅设计、产品包装美学体系，提升各终端触点的品牌质感。</li>
+                    <li>根据战略规划进行内容主题规划和关键词优化（SEO），确保专业性内容的持续、稳定输出，提高在线内容的搜索能见度和用户参与度；</li>
+                    <li>制定与需求紧密结合的年度活动计划，结合品牌推广活动与学术活动，有效探索和挖掘潜在的销售线索；</li>
+                    <li>更新视觉识别系统（VIS），进一步增强品牌视觉辨识度。负责落实更新展厅设计、产品包装美学体系，提升各终端触点的品牌质感。</li>
                 </ul>
             </div>
 
@@ -169,9 +173,9 @@
                 </div>
                 <div class="job-role">品牌企划负责人</div>
                 <ul class="duty-list">
-                    <li>0-1 打造高端品牌形象，建立完整视觉识别系统（VIS）及各类应用标准；</li>
+                    <li>0-1 打造公司高端品牌形象，建立完整视觉识别系统（VIS）及各类应用标准；</li>
                     <li>构建以价值观为核心的企业文化体系，编写并宣贯企业文化手册；</li>
-                    <li>策划组织超 500 人规模年会及团建，建立员工荣誉与文化积分激励体系；</li>
+                    <li>策划组织超 500 人规模年会及团建活动，建立员工荣誉与文化积分激励体系；</li>
                     <li>负责高新企业申报宣传材料编撰及政府接待流程设计。</li>
                 </ul>
             </div>
@@ -184,8 +188,8 @@
                 <div class="job-role">活动策划经理</div>
                 <ul class="duty-list">
                     <li>负责每年 3 场以上大型特装展会（如安博会）及海外展会全案策划执行；</li>
-                    <li>统筹全国行业会议巡展，协调 27 家分公司资源，确保品牌标准化输出；</li>
-                    <li>管理媒体公关关系，通过深度发稿与人物采访提升行业专家形象。</li>
+                    <li>统筹科达全国行业会议巡展，协调 27 家分公司资源，确保品牌标准化输出；</li>
+                    <li>管理媒体公关关系，通过深度发稿与人物采访提升企业在安防与视频会议行业的专家形象。</li>
                 </ul>
             </div>
         </section>
@@ -249,13 +253,13 @@
 <a href="YOUR_COZE_AGENT_URL" class="ai-btn">🧠</a>
 
 <script>
-    // 弥散光范围缩小 1/3，并优化追踪
+    // 弥散光追踪逻辑：收窄直径并优化羽化边缘
     document.addEventListener('mousemove', (e) => {
         document.body.style.setProperty('--mouse-x', e.clientX + 'px');
         document.body.style.setProperty('--mouse-y', e.clientY + 'px');
     });
 
-    // 下拉逻辑
+    // 案例下拉逻辑
     function toggleCase(header) {
         header.parentElement.classList.toggle('active');
     }
