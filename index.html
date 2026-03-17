@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>刘凌浩 | 品牌系统策划与文化创新作品集</title>
+    <title>刘凌浩 | 品牌系统策划与文化创新</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Serif+SC:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -11,101 +11,120 @@
             --text-main: #1a1a1a;
             --text-sub: #4a4a4a;
             --accent: #b33a2a; 
-            --light-gray: #f9f9f9;
-            --spacing: 50px;
+            --gradient-color: rgba(179, 58, 42, 0.15); /* 弥散光核心色（深红） */
+            --gradient-color-2: rgba(138, 43, 226, 0.1); /* 弥散光辅助色（紫） */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', 'PingFang SC', sans-serif; background: var(--bg); color: var(--text-main); line-height: 1.8; }
-
-        .container { display: flex; min-height: 100vh; }
-        
-        /* 左侧固定栏 */
-        aside {
-            width: 30%;
-            padding: var(--spacing);
-            position: fixed;
-            height: 100vh;
-            border-right: 1px solid #eee;
-            background: #fff;
-            z-index: 10;
+        body { 
+            font-family: 'Inter', 'PingFang SC', sans-serif; 
+            background: var(--bg); 
+            color: var(--text-main); 
+            line-height: 1.8;
+            overflow-x: hidden;
         }
 
-        .profile h1 { font-family: 'Noto Serif SC', serif; font-size: 2.2rem; margin-bottom: 5px; color: #000; }
-        .tagline { font-size: 1rem; color: var(--accent); font-weight: 600; margin-bottom: 30px; letter-spacing: 1px; }
-        .intro-text { font-size: 0.9rem; color: var(--text-sub); margin-bottom: 40px; text-align: justify; }
-        
-        .nav-links { list-style: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-        .nav-links li { margin-bottom: 15px; }
-        .nav-links a { text-decoration: none; color: #aaa; transition: 0.3s; }
-        .nav-links a:hover { color: var(--text-main); }
+        /* 弥散光背景层 */
+        #interactive-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                        var(--gradient-color) 0%, 
+                        var(--gradient-color-2) 25%, 
+                        rgba(255,255,255,0) 60%);
+            transition: background 0.1s ease;
+        }
 
-        /* 右侧滚动内容区 */
-        main { width: 70%; margin-left: 30%; padding: var(--spacing) 10% var(--spacing) 8%; }
+        .container { display: flex; min-height: 100vh; position: relative; }
         
+        aside {
+            width: 30%; padding: 50px; position: fixed; height: 100vh;
+            border-right: 1px solid rgba(0,0,0,0.05); background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px); z-index: 10; overflow-y: auto;
+        }
+
+        .avatar { width: 110px; height: 110px; border-radius: 50%; background: #eee; margin-bottom: 25px; overflow: hidden; border: 1px solid #eee; }
+        .avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .profile h1 { font-family: 'Noto Serif SC', serif; font-size: 2rem; margin-bottom: 5px; }
+        .tagline { font-size: 0.95rem; color: var(--accent); font-weight: 600; margin-bottom: 25px; letter-spacing: 1px; }
+
+        .skill-group { margin-bottom: 25px; }
+        .skill-title { font-size: 0.75rem; font-weight: 700; color: #999; margin-bottom: 10px; display: block; letter-spacing: 1px; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { background: rgba(0,0,0,0.03); padding: 3px 10px; border-radius: 2px; font-size: 0.8rem; color: var(--text-sub); border: 1px solid rgba(0,0,0,0.05); }
+
+        main { width: 70%; margin-left: 30%; padding: 50px 8%; }
         section { margin-bottom: 100px; }
-        h2 { font-family: 'Noto Serif SC', serif; font-size: 1.6rem; margin-bottom: 40px; position: relative; padding-bottom: 10px; }
-        h2::after { content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 3px; background: var(--accent); }
+        h2 { font-family: 'Noto Serif SC', serif; font-size: 1.6rem; margin-bottom: 40px; border-bottom: 1px solid #eee; padding-bottom: 10px; position: relative; }
+        h2::after { content: ''; position: absolute; left: 0; bottom: -1px; width: 50px; height: 3px; background: var(--accent); }
 
-        /* 经历项样式 */
+        /* 工作经历完整描述 */
         .exp-block { margin-bottom: 60px; }
-        .exp-title-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
-        .company-name { font-size: 1.25rem; font-weight: 700; color: #000; }
-        .duration { font-size: 0.85rem; color: #999; font-weight: 400; }
-        .job-role { font-size: 0.95rem; color: var(--accent); font-weight: 600; margin-bottom: 15px; }
+        .exp-title-row { display: flex; justify-content: space-between; align-items: baseline; }
+        .company-name { font-size: 1.2rem; font-weight: 700; }
+        .job-role { font-size: 0.95rem; color: var(--accent); font-weight: 600; margin: 10px 0 15px; }
+        .duty-list { list-style: none; }
+        .duty-list li { font-size: 0.95rem; margin-bottom: 12px; position: relative; padding-left: 20px; text-align: justify; }
+        .duty-list li::before { content: "•"; position: absolute; left: 0; color: var(--accent); }
+
+        /* 可展开案例卡片 */
+        .case-card { border: 1px solid rgba(0,0,0,0.05); border-radius: 8px; margin-bottom: 30px; background: rgba(255,255,255,0.6); overflow: hidden; transition: 0.3s; }
+        .case-header { padding: 25px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .case-header:hover { background: rgba(0,0,0,0.02); }
+        .case-title-area { flex: 1; }
+        .case-name { font-size: 1.15rem; font-weight: 700; display: block; }
+        .case-tag { font-size: 0.7rem; color: var(--accent); border: 1px solid var(--accent); padding: 1px 6px; border-radius: 2px; margin-top: 5px; display: inline-block; }
+        .arrow { font-size: 1.2rem; color: #ccc; transition: 0.3s; }
         
-        .duty-list { list-style: none; margin-bottom: 25px; }
-        .duty-list li { font-size: 0.95rem; color: var(--text-main); margin-bottom: 12px; position: relative; padding-left: 20px; }
-        .duty-list li::before { content: "•"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+        /* 下拉图库层 */
+        .case-details { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; background: #fafafa; }
+        .case-card.active .case-details { max-height: 2000px; }
+        .case-card.active .arrow { transform: rotate(180deg); }
+        
+        .gallery-grid { padding: 20px; display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .gallery-item { width: 100%; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .gallery-item img { width: 100%; display: block; }
+        .gallery-desc { padding: 15px; font-size: 0.85rem; color: var(--text-sub); background: #fff; border-top: 1px solid #eee; }
 
-        /* 案例卡片样式 */
-        .case-card { background: var(--light-gray); padding: 30px; border-radius: 4px; margin-bottom: 30px; }
-        .case-tag { font-size: 0.75rem; font-weight: 700; color: #fff; background: var(--accent); padding: 2px 8px; border-radius: 2px; text-transform: uppercase; margin-bottom: 15px; display: inline-block; }
-        .case-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; display: block; }
-        .case-content { font-size: 0.9rem; color: var(--text-sub); }
-
-        /* 触点 */
-        .contact-info { font-size: 0.85rem; color: #999; margin-top: 50px; }
+        .ai-btn { position: fixed; bottom: 30px; right: 30px; background: #000; color: #fff; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 24px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); z-index: 100; }
 
         @media (max-width: 1024px) {
-            .container { flex-direction: column; }
-            aside { width: 100%; position: relative; height: auto; border-right: none; border-bottom: 1px solid #eee; }
+            aside { width: 100%; position: relative; height: auto; border-right: none; }
             main { width: 100%; margin-left: 0; padding: 40px 20px; }
-            .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
         }
-
-        /* AI 悬浮球 */
-        .ai-btn {
-            position: fixed; bottom: 30px; right: 30px; 
-            background: #000; color: #fff; width: 60px; height: 60px; 
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            text-decoration: none; font-size: 24px; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            transition: 0.3s; z-index: 100;
-        }
-        .ai-btn:hover { transform: scale(1.1); background: var(--accent); }
     </style>
 </head>
 <body>
 
+<div id="interactive-bg"></div>
+
 <div class="container">
     <aside>
         <div class="profile">
+            <div class="avatar"><img src="avatar.jpg" alt="刘凌浩"></div>
             <h1>刘凌浩</h1>
             <p class="tagline">BRAND STRATEGIST</p>
-            <p class="intro-text">
-                10年+品牌与文化建设经验。擅长将复杂的生物科技/高科技语境转化为具象的商业影响力。从 0-1 体系构建到全媒体矩阵传播，致力于为企业打造持久的品牌护城河。
-            </p>
             
-            <ul class="nav-links">
-                <li><a href="#experience">工作经历 / Experience</a></li>
-                <li><a href="#projects">项目案例 / Projects</a></li>
-                <li><a href="#education">教育背景 / Education</a></li>
-            </ul>
-        </div>
+            <div class="skill-group">
+                <span class="skill-title">核心硬技能</span>
+                <div class="skill-tags">
+                    <span class="tag">品牌系统策划</span><span class="tag">文化创新建设</span>
+                    <span class="tag">营销活动策划</span><span class="tag">0-1品牌打造</span>
+                </div>
+            </div>
 
+            <div class="skill-group">
+                <span class="skill-title">语言与工具</span>
+                <div class="skill-tags">
+                    <span class="tag">英语 (熟练)</span><span class="tag">Office 专家级</span>
+                    <span class="tag">VIS系统管理</span><span class="tag">SEO/SEM</span>
+                </div>
+            </div>
+        </div>
         <div class="contact-info">
-            📍 中国·苏州<br>
-            📞 182 5111 2006<br>
+            📍 中国·苏州 | 182 5111 2006<br>
             📧 liu_linghao@sina.com
         </div>
     </aside>
@@ -113,22 +132,19 @@
     <main>
         <section id="experience">
             <h2>工作经历 / Experience</h2>
-
             <div class="exp-block">
                 <div class="exp-title-row">
                     <span class="company-name">江苏艾玮得生物科技有限公司</span>
                     <span class="duration">2023.05 - 至今</span>
                 </div>
-                <div class="job-role">品宣经理 | 汇报对象：营销总监</div>
+                <div class="job-role">品宣经理</div>
                 <ul class="duty-list">
-                    <li>发掘并精准定位企业传播亮点，确立品牌核心发展方针。刷新形象识别系统，持续提升社会知名度；</li>
-                    <li>拓展全媒体矩阵（公众号、视频号、网站、知乎、B站及专业医疗媒体），深度维护行业学会关系，显著提高在药企、科研及医院的品牌认知度；</li>
-                    <li>内容主题规划与关键词优化（SEO），确保专业性内容持续、稳定输出，提高搜索能见度与用户参与度；</li>
-                    <li>制定年度品牌及学术活动计划，探索并挖掘潜在销售线索；</li>
-                    <li>负责更新展厅设计、产品包装美学体系，提升终端触点的品牌质感。</li>
+                    <li>发掘并精准定位企业传播亮点，确立品牌核心发展方针。策划实施全面品牌建设计划，通过VIS刷新显著提升品牌质感；</li>
+                    <li>拓展全媒体矩阵（公众号、视频号、知乎、B站等），深耕药企与医院渠道，品牌认知度大幅跨越；</li>
+                    <li>负责内容主题规划与关键词优化(SEO)，确保专业内容稳定输出，提升搜索能见度；</li>
+                    <li>更新落实展厅设计、产品包装美学体系，提升各终端触点的品牌温度。</li>
                 </ul>
             </div>
-
             <div class="exp-block">
                 <div class="exp-title-row">
                     <span class="company-name">诺一迈尔(苏州)医学科技有限公司</span>
@@ -136,76 +152,80 @@
                 </div>
                 <div class="job-role">品牌企划负责人</div>
                 <ul class="duty-list">
-                    <li>0-1 打造高端品牌形象，建立完整视觉识别系统（VIS）及应用标准；</li>
-                    <li>构建以价值观为核心的企业文化体系，编写并宣贯企业文化手册；</li>
-                    <li>策划并组织多场超 500 人规模的年会及大型团建，建立员工荣誉与文化积分体系；</li>
-                    <li>负责高新企业申报中的宣传材料编撰及政府接待流程设计。</li>
-                </ul>
-            </div>
-
-            <div class="exp-block">
-                <div class="exp-title-row">
-                    <span class="company-name">苏州科达科技股份有限公司</span>
-                    <span class="duration">2012.02 - 2019.02</span>
-                </div>
-                <div class="job-role">活动策划经理</div>
-                <ul class="duty-list">
-                    <li>负责每年 3 场以上大型特装展会（如安博会）及海外展会（迪拜、德国等）的全程策划与执行；</li>
-                    <li>统筹科达全国行业会议巡展，协调 27 家分公司资源，确保品牌标准化输出；</li>
-                    <li>管理媒体公关关系，通过深度发稿与采访提升行业话语权。</li>
+                    <li>0-1 打造高端品牌形象，建立完整视觉识别系统及应用标准；</li>
+                    <li>构建以价值观为核心的企业文化体系，编写并宣贯企业文化手册。</li>
                 </ul>
             </div>
         </section>
 
         <section id="projects">
-            <h2>项目案例 / Selected Projects</h2>
+            <h2>精选案例展示 / Selected Projects</h2>
+            <p style="font-size: 0.85rem; color: #999; margin-bottom: 20px;">* 点击卡片展开查看完整作品详情</p>
 
             <div class="case-card">
-                <span class="case-tag">数字化建设</span>
-                <span class="case-name">官方网站 0-1 深度构建</span>
-                <p class="case-content">涵盖从网站架构逻辑规划、视觉风格设定到专业内容收集与撰写。通过关键词部署实现高权重收录，使其成为企业线上获客与品牌展示的核心窗口。</p>
-            </div>
-
-            <div class="case-card">
-                <span class="case-tag">场景化传播</span>
-                <span class="case-name">智能设备展厅完整策划</span>
-                <p class="case-content">负责从展厅布局、内容撰写到参观路线设计的全过程。培训专业的展厅演讲人员，将晦涩的技术参数转化为生动的品牌故事，实现产品亮点的沉浸式陈列。</p>
-            </div>
-
-            <div class="case-card">
-                <span class="case-tag">内容驱动</span>
-                <span class="case-name">“芯”闻联播学术直播系列</span>
-                <p class="case-content">针对类器官芯片领域，联合学术 KOL 开展系列直播。通过高质量内容输出，不仅提升了行业声量，更有效地为销售团队转化了高意向的潜客线索。</p>
-            </div>
-        </section>
-
-        <section id="education">
-            <h2>教育背景 / Education</h2>
-            <div class="exp-block">
-                <div class="exp-title-row">
-                    <span class="company-name">河海大学</span>
-                    <span class="duration">本科</span>
+                <div class="case-header" onclick="toggleCase(this)">
+                    <div class="case-title-area">
+                        <span class="case-name">0-1 打造官方网站系统</span>
+                        <span class="case-tag">数字化建设</span>
+                    </div>
+                    <div class="arrow">▾</div>
                 </div>
-                <div class="job-role" style="color:var(--text-main)">工商管理专业</div>
+                <div class="case-details">
+                    <div class="gallery-grid">
+                        <div class="gallery-item">
+                            <img src="wangzhan-1.png, wangzhan-2.png" alt="官网首页">
+                            <div class="gallery-desc">官网视觉架构：侧重于学术严谨性与现代感结合。</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="wangzhan-1.png, wangzhan-2.png" alt="官网内容页">
+                            <div class="gallery-desc">SEO 优化布局：针对核心产品关键词进行深度内容填充。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-card">
+                <div class="case-header" onclick="toggleCase(this)">
+                    <div class="case-title-area">
+                        <span class="case-name">智能设备展厅完整策划</span>
+                        <span class="case-tag">场景化传播</span>
+                    </div>
+                    <div class="arrow">▾</div>
+                </div>
+                <div class="case-details">
+                    <div class="gallery-grid">
+                        <div class="gallery-item">
+                            <img src="zhanting-1.png, zhanting-2.png" alt="展厅实景">
+                            <div class="gallery-desc">空间动线设计：从参观逻辑到产品陈列的闭环体验。</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="zhanting-1.png, zhanting-2.png" alt="互动区域">
+                            <div class="gallery-desc">内容叙事：将晦涩的技术参数转化为生动的品牌故事。</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 </div>
 
-<a href="YOUR_COZE_AGENT_URL" class="ai-btn" title="点击对话我的 AI 分身">
-    🧠
-</a>
+<a href="YOUR_COZE_AGENT_URL" class="ai-btn">🧠</a>
 
 <script>
-    // 简单的平滑滚动
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
+    // 1. 弥散背景交互脚本
+    const bg = document.getElementById('interactive-bg');
+    document.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth) * 100;
+        const y = (e.clientY / window.innerHeight) * 100;
+        bg.style.setProperty('--mouse-x', x + '%');
+        bg.style.setProperty('--mouse-y', y + '%');
     });
+
+    // 2. 案例展开/折叠脚本
+    function toggleCase(header) {
+        const card = header.parentElement;
+        card.classList.toggle('active');
+    }
 </script>
 
 </body>
