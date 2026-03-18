@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>刘凌浩 | 品牌策划与文化创新</title>
+    <title>刘凌浩 | 品牌系统策划与文化创新</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Serif+SC:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -18,7 +18,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; font-size: 16px; }
         body { font-family: 'Inter', 'PingFang SC', sans-serif; background: var(--bg-main); color: var(--text-main); line-height: 1.8; overflow-x: hidden; }
 
         #interactive-bg {
@@ -30,122 +30,119 @@
                         transparent 100%);
         }
 
-        .container { display: flex; min-height: 100vh; }
+        .container { display: flex; min-height: 100vh; flex-direction: row; }
         
-        /* 左侧固定栏 */
+        /* --- 侧边栏基础样式 --- */
         aside {
             width: 32%; padding: 50px; position: fixed; height: 100vh;
             background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(30px); 
-            border-right: 1px solid rgba(0,0,0,0.03);
-            z-index: 10; 
-            display: flex; flex-direction: column;
-            overflow-y: auto;
+            backdrop-filter: blur(30px); border-right: 1px solid rgba(0,0,0,0.03);
+            z-index: 10; display: flex; flex-direction: column; overflow-y: auto;
         }
 
-        aside::-webkit-scrollbar { width: 8px; }
-        aside::-webkit-scrollbar-thumb { 
-            background: rgba(0, 0, 0, 0.08); 
-            border-radius: 10px; 
-            border: 2px solid transparent;
-            background-clip: padding-box;
-        }
+        aside::-webkit-scrollbar { width: 6px; }
+        aside::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.1); border-radius: 10px; }
 
         .aside-content { flex: 1; }
 
-        /* 头像与姓名横向排列 */
         .profile-header { display: flex; align-items: center; margin-bottom: 40px; gap: 20px; }
         .avatar { width: 100px; height: 100px; border-radius: 50%; background: #fff; overflow: hidden; border: 2px solid #fff; box-shadow: 0 5px 20px rgba(0,0,0,0.05); flex-shrink: 0; }
         .avatar img { width: 100%; height: 100%; object-fit: cover; }
         
-        .name-box h1 { font-family: 'Noto Serif SC', serif; font-size: 1.8rem; margin-bottom: 2px; letter-spacing: -1px; }
+        .name-box h1 { font-family: 'Noto Serif SC', serif; font-size: 1.8rem; margin-bottom: 2px; }
         .tagline { font-size: 0.75rem; color: var(--accent); font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
 
         .meta-info { margin-bottom: 35px; border-left: 2px solid #f0f0f0; padding-left: 20px; }
-        .meta-item { margin-bottom: 15px; }
-        .meta-label { font-size: 0.65rem; color: #aaa; text-transform: uppercase; display: block; margin-bottom: 2px; }
-        .meta-value { font-size: 0.85rem; font-weight: 600; color: #333; }
+        .meta-item { margin-bottom: 12px; }
+        .meta-label { font-size: 0.65rem; color: #aaa; text-transform: uppercase; display: block; }
+        .meta-value { font-size: 0.85rem; font-weight: 600; }
 
-        .nav-menu { list-style: none; margin-bottom: 40px; }
-        .nav-menu li { margin-bottom: 12px; }
+        .nav-menu { list-style: none; margin-bottom: 35px; }
+        .nav-menu li { margin-bottom: 10px; }
         .nav-menu a { text-decoration: none; font-size: 0.75rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; }
         .nav-menu a:hover { color: var(--accent); padding-left: 5px; }
 
-        .skill-group { margin-bottom: 30px; }
-        .skill-title { font-size: 0.65rem; font-weight: 700; color: #bbb; margin-bottom: 12px; display: block; text-transform: uppercase; letter-spacing: 1px; }
+        .skill-group { margin-bottom: 25px; }
+        .skill-title { font-size: 0.65rem; font-weight: 700; color: #bbb; margin-bottom: 10px; display: block; text-transform: uppercase; }
         .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-        .tag { background: #fff; padding: 4px 12px; border-radius: 4px; font-size: 0.7rem; color: var(--text-sub); border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .tag { background: #fff; padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; color: var(--text-sub); border: 1px solid rgba(0,0,0,0.04); }
 
-        /* 底部固定区域 */
-        .aside-footer { margin-top: 40px; padding-top: 30px; border-top: 1px solid #f5f5f5; }
-        .contact-info { font-size: 0.75rem; color: #999; line-height: 1.8; margin-bottom: 25px; }
+        .aside-footer { margin-top: 30px; padding-top: 25px; border-top: 1px solid #f5f5f5; }
+        .contact-info { font-size: 0.75rem; color: #999; line-height: 1.8; margin-bottom: 20px; }
         
-        /* 下载按钮：缩短长度 + 与板块对齐 */
         .download-btn {
-            display: inline-flex; /* 改为行内块，不再强制 100% */
-            align-items: center; 
-            justify-content: center;
-            min-width: 180px; /* 设定一个适中的宽度，与上方板块视觉对齐 */
-            background: var(--gradient-glass); 
-            backdrop-filter: blur(10px);
-            color: var(--accent);
-            text-decoration: none; padding: 12px 25px; border-radius: 10px;
-            font-size: 0.8rem; font-weight: 600; 
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            border: 1px solid rgba(179, 58, 42, 0.1);
-            animation: breathe 4s infinite ease-in-out;
+            display: inline-flex; align-items: center; justify-content: center;
+            min-width: 160px; background: var(--gradient-glass); backdrop-filter: blur(10px);
+            color: var(--accent); text-decoration: none; padding: 10px 20px; border-radius: 8px;
+            font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(179, 58, 42, 0.1);
+            transition: 0.3s; animation: breathe 4s infinite ease-in-out;
         }
-        .download-btn:hover { 
-            transform: translateY(-3px); 
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            color: #8a2be2;
-        }
-        .download-btn svg { margin-right: 8px; }
 
         @keyframes breathe {
-            0% { opacity: 0.85; box-shadow: 0 4px 15px rgba(179, 58, 42, 0.05); }
-            50% { opacity: 1; box-shadow: 0 8px 30px rgba(138, 43, 226, 0.12); }
-            100% { opacity: 0.85; box-shadow: 0 4px 15px rgba(179, 58, 42, 0.05); }
+            0%, 100% { box-shadow: 0 4px 15px rgba(179, 58, 42, 0.05); }
+            50% { box-shadow: 0 8px 25px rgba(138, 43, 226, 0.12); }
         }
 
-        /* 右侧内容 */
-        main { width: 68%; margin-left: 32%; padding: 60px 8%; }
+        /* --- 主内容区 --- */
+        main { width: 68%; margin-left: 32%; padding: 60px 8%; transition: all 0.3s; }
         section { margin-bottom: 80px; }
         h2 { font-family: 'Noto Serif SC', serif; font-size: 1.4rem; margin-bottom: 35px; color: #333; display: flex; align-items: center; }
         h2::before { content: ''; width: 25px; height: 2px; background: var(--accent); margin-right: 15px; }
 
         .glass-card {
-            background: var(--bg-card); padding: 45px; border-radius: 12px;
+            background: var(--bg-card); padding: 40px; border-radius: 12px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.03); border: 1px solid rgba(255,255,255,0.8);
-            margin-bottom: 35px; transition: 0.4s ease;
+            margin-bottom: 35px;
         }
-        .glass-card:hover { transform: translateY(-4px); box-shadow: 0 15px 45px rgba(0,0,0,0.05); }
 
         .advantage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
         .adv-item strong { display: block; font-size: 1rem; margin-bottom: 8px; color: var(--accent); }
-        .adv-item p { font-size: 0.85rem; color: var(--text-sub); text-align: justify; }
+        .adv-item p { font-size: 0.85rem; color: var(--text-sub); }
 
-        .exp-block { margin-bottom: 45px; padding-bottom: 40px; border-bottom: 1px dashed #eee; }
-        .exp-block:last-child { border-bottom: none; padding-bottom: 0; }
-        .exp-title-row { display: flex; justify-content: space-between; align-items: baseline; }
-        .company-name { font-size: 1.15rem; font-weight: 700; }
+        .exp-block { margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px dashed #eee; }
+        .exp-block:last-child { border-bottom: none; }
+        .exp-title-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; }
+        .company-name { font-size: 1.1rem; font-weight: 700; }
         .duration { font-size: 0.8rem; color: #bbb; }
-        .job-role { font-size: 0.95rem; color: #444; font-weight: 600; margin: 8px 0 12px; }
-        .duty-list li { font-size: 0.9rem; color: var(--text-sub); margin-bottom: 12px; text-align: justify; list-style-type: square; margin-left: 18px; }
+        .job-role { font-size: 0.9rem; color: #444; font-weight: 600; margin: 8px 0; }
+        .duty-list li { font-size: 0.9rem; color: var(--text-sub); margin-bottom: 10px; margin-left: 18px; }
 
         .case-card { background: #fff; border-radius: 12px; margin-bottom: 25px; border: 1px solid rgba(0,0,0,0.04); overflow: hidden; }
-        .case-header { padding: 25px 35px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-        .case-details { max-height: 0; overflow: hidden; transition: max-height 0.8s ease; background: #fafafa; }
-        .case-card.active .case-details { max-height: 2000px; }
-        .gallery-container { padding: 30px; }
-        .gallery-item img { width: 100%; border-radius: 6px; margin-bottom: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
-        .gallery-desc { font-size: 0.85rem; color: var(--text-sub); border-left: 2px solid var(--accent); padding-left: 15px; }
+        .case-header { padding: 20px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .case-details { max-height: 0; overflow: hidden; transition: max-height 0.6s ease; background: #fafafa; }
+        .case-card.active .case-details { max-height: 1500px; }
+        .gallery-container { padding: 25px; }
+        .gallery-item img { width: 100%; border-radius: 6px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
 
+        /* --- 重要：手机端适配关键代码 (Media Queries) --- */
         @media (max-width: 1024px) {
-            aside { width: 100%; position: relative; height: auto; padding: 40px 25px; border-right: none; }
-            main { width: 100%; margin-left: 0; padding: 40px 20px; }
-            .advantage-grid { grid-template-columns: 1fr; }
+            .container { flex-direction: column; }
+            
+            aside {
+                width: 100%; height: auto; position: relative; padding: 40px 30px;
+                border-right: none; border-bottom: 1px solid rgba(0,0,0,0.05);
+            }
+
+            main { width: 100%; margin-left: 0; padding: 40px 25px; }
+
+            .profile-header { flex-direction: column; text-align: center; gap: 15px; }
+            .name-box h1 { font-size: 1.8rem; }
+
+            .advantage-grid { grid-template-columns: 1fr; gap: 20px; }
+
+            .aside-footer { text-align: center; }
+            .download-btn { width: 80%; margin: 0 auto; }
+            
+            .exp-title-row { flex-direction: column; }
+            .duration { margin-top: -5px; margin-bottom: 5px; }
+        }
+
+        /* 针对超小屏幕（文字自动缩小） */
+        @media (max-width: 480px) {
+            html { font-size: 14px; }
+            .glass-card { padding: 25px; }
+            h2 { font-size: 1.2rem; }
+            .company-name { font-size: 1rem; }
         }
     </style>
 </head>
@@ -160,29 +157,26 @@
                 <div class="avatar"><img src="avatar.jpg" alt="刘凌浩"></div>
                 <div class="name-box">
                     <h1>刘凌浩</h1>
-                    <p class="tagline">18251112006</p>
-                    <p class="tagline">liu_linghao@sina.com</p>
+                    <p class="tagline">BRAND STRATEGIST</p>
                 </div>
             </div>
             
             <div class="meta-info">
                 <div class="meta-item"><span class="meta-label">工作年限</span><span class="meta-value">10年+</span></div>
-                <div class="meta-item"><span class="meta-label">关键技能</span><span class="meta-value">品牌策划 / 文化创新 / 整合营销</span></div>
-                <div class="meta-item"><span class="meta-label">教育背景</span><span class="meta-value">河海大学 · 工商管理 · 211本科</span></div>
-                <div class="meta-item"><span class="meta-label">工作地点</span><span class="meta-value">苏州</span></div>
+                <div class="meta-item"><span class="meta-label">关键词</span><span class="meta-value">品牌策划 / 文化创新 / 整合营销</span></div>
+                <div class="meta-item"><span class="meta-label">教育背景</span><span class="meta-value">河海大学 · 工商管理</span></div>
             </div>
 
             <ul class="nav-menu">
-                <li><a href="#advantage">核心优势 / Strength</a></li>
-                <li><a href="#experience">履迹 / Footprints</a></li>
-                <li><a href="#projects">案例 / Archives</a></li>
+                <li><a href="#advantage">核心优势</a></li>
+                <li><a href="#experience">履迹</a></li>
+                <li><a href="#projects">案例</a></li>
             </ul>
 
             <div class="skill-group">
-                <span class="skill-title">核心技能矩阵 Matrix</span>
+                <span class="skill-title">核心技能 Matrix</span>
                 <div class="skill-tags">
-                    <span class="tag">品牌系统策划</span><span class="tag">文化创新建设</span>
-                    <span class="tag">营销活动策划</span><span class="tag">自媒体矩阵搭建</span>
+                    <span class="tag">品牌系统策划</span><span class="tag">文化创新建设</span><span class="tag">营销活动策划</span>
                     <span class="tag">0-1品牌打造</span><span class="tag">VIS系统管理</span>
                 </div>
             </div>
@@ -190,18 +184,20 @@
             <div class="skill-group">
                 <span class="skill-title">工具与语言 Tools & Languages</span>
                 <div class="skill-tags">
-                    <span class="tag">英语 (熟练)</span>
-                    <span class="tag">Office 专家级</span>
-                    <span class="tag">Python/GitHub</span>
-                    <span class="tag">AI 工具链(Coze)</span>
+                    <span class="tag">英语 (熟练)</span><span class="tag">Office 专家级</span>
+                    <span class="tag">Python/GitHub</span><span class="tag">AI 工具链(Coze)</span>
                 </div>
             </div>
         </div>
 
         <div class="aside-footer">
-            <a href="resume.pdf" download="刘凌浩-品牌策划简历.pdf" class="download-btn">
+            <div class="contact-info">
+                📍 中国·苏州 | 182 5111 2006<br>
+                📧 liu_linghao@sina.com
+            </div>
+            <a href="resume.pdf" download="刘凌浩-简历.pdf" class="download-btn">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                简历下载
+                下载 PDF 简历
             </a>
         </div>
     </aside>
@@ -213,19 +209,19 @@
                 <div class="advantage-grid">
                     <div class="adv-item">
                         <strong>全链路品牌构建能力</strong>
-                        <p>擅长从 0-1 搭建品牌视觉识别系统及企业文化体系，将战略定位精准转化为高效的视觉与内容表达。</p>
+                        <p>擅长从 0-1 搭建品牌视觉识别系统及企业文化体系，将战略定位精准转化为高效内容表达。</p>
                     </div>
                     <div class="adv-item">
                         <strong>深厚行业洞察力</strong>
-                        <p>在生物医药、智慧安防等高门槛领域，能快速拆解技术内核，转化为具备传播力的学术故事或营销内容。</p>
+                        <p>在生物医药、智慧安防等高门槛领域，能快速拆解技术内核，转化为传播力强的学术故事。</p>
                     </div>
                     <div class="adv-item">
                         <strong>数字化内容驱动</strong>
-                        <p>深度运营全媒体矩阵，通过关键词优化（SEO）与高质量内容产出，显著提升品牌搜索能见度。</p>
+                        <p>深度运营全媒体矩阵，通过关键词优化（SEO）与高质量内容产出，显著提升品牌曝光。</p>
                     </div>
                     <div class="adv-item">
                         <strong>大型项目整合执行</strong>
-                        <p>统筹特装展会及全国行业巡展，具备极强的多方协作与资源整合能力，确保品牌标准化输出。</p>
+                        <p>统筹特装展会及全国行业巡展，具备极强的多方协作与资源整合能力。</p>
                     </div>
                 </div>
             </div>
@@ -242,10 +238,10 @@
                     <div class="job-role">品宣经理 | 汇报对象：营销总监</div>
                     <ul class="duty-list">
                         <li>发掘并定位企业传播亮点，策划实施全面品牌建设计划，刷新形象识别系统。</li>
-                        <li>拓展全媒体矩阵，维护和加深与行业学会及媒体的合作关系，显著提高品牌认知度。</li>
+                        <li>拓展全媒体矩阵（公众号、视频号、知乎、B站等），显著提高品牌认知度。</li>
                         <li>进行内容主题规划和关键词优化（SEO），确保专业内容稳定输出。</li>
-                        <li>制定年度活动计划，结合品牌推广与学术活动，挖掘潜在销售线索。</li>
-                        <li>更新VIS系统，负责落实展厅设计、产品包装美学体系，提升终端触点质感。</li>
+                        <li>制定年度活动计划，挖掘潜在销售线索，探索学术与品牌结合的新路径。</li>
+                        <li>负责落实展厅设计、产品包装美学体系，提升终端触点质感。</li>
                     </ul>
                 </div>
                 <div class="exp-block">
@@ -255,21 +251,8 @@
                     </div>
                     <div class="job-role">品牌企划负责人</div>
                     <ul class="duty-list">
-                        <li>0-1 打造公司高端品牌形象，建立完整视觉识别系统（VIS）及各类应用标准。</li>
-                        <li>构建以价值观为核心的企业文化体系，编写并宣贯企业文化手册。</li>
-                        <li>策划组织超 500 人规模年会及团建活动，建立员工荣誉与文化积分激励体系。</li>
-                    </ul>
-                </div>
-                <div class="exp-block">
-                    <div class="exp-title-row">
-                        <span class="company-name">苏州科达科技股份有限公司</span>
-                        <span class="duration">2012.02 - 2019.02</span>
-                    </div>
-                    <div class="job-role">活动策划经理</div>
-                    <ul class="duty-list">
-                        <li>负责每年 3 场以上大型特装展会及海外展会全案策划执行。</li>
-                        <li>统筹科达全国行业会议巡展，协调 27 家分公司资源，确保品牌标准化输出。</li>
-                        <li>管理媒体公关关系，通过深度发稿与人物采访提升企业行业专家形象。</li>
+                        <li>0-1 打造公司高端品牌形象，建立完整视觉识别系统（VIS）。</li>
+                        <li>构建以价值观为核心的企业文化体系，编写宣贯手册，建立荣誉激励体系。</li>
                     </ul>
                 </div>
             </div>
@@ -283,13 +266,12 @@
                         <p style="font-size: 1.05rem; font-weight: 700;">官方网站 0-1 深度构建</p>
                         <span style="font-size: 0.75rem; color: #aaa;">DIGITAL EXPERIENCE</span>
                     </div>
-                    <span style="font-size:1.5rem; color:#eee">▾</span>
+                    <span>▾</span>
                 </div>
                 <div class="case-details">
                     <div class="gallery-container">
                         <div class="gallery-item">
                             <img src="web-main.jpg" alt="官网首页">
-                            <div class="gallery-desc"><strong>数字化转型：</strong>将复杂的技术语言转化为数字化叙事，提升品牌线索转化率。</div>
                         </div>
                     </div>
                 </div>
@@ -300,8 +282,10 @@
 
 <script>
     document.addEventListener('mousemove', (e) => {
-        document.body.style.setProperty('--mouse-x', e.clientX + 'px');
-        document.body.style.setProperty('--mouse-y', e.clientY + 'px');
+        if (window.innerWidth > 1024) {
+            document.body.style.setProperty('--mouse-x', e.clientX + 'px');
+            document.body.style.setProperty('--mouse-y', e.clientY + 'px');
+        }
     });
     function toggleCase(header) {
         header.parentElement.classList.toggle('active');
