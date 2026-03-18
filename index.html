@@ -12,6 +12,8 @@
             --text-main: #1a1a1a;
             --text-sub: #666666;
             --accent: #b33a2a; 
+            /* 渐变色定义：紫色到红色 */
+            --gradient-primary: linear-gradient(135deg, #8a2be2 0%, #b33a2a 100%);
             --glow-1: rgba(179, 58, 42, 0.18); 
             --glow-2: rgba(138, 43, 226, 0.08);
         }
@@ -36,8 +38,9 @@
             background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(25px); 
             border-right: 1px solid rgba(0,0,0,0.03);
-            z-index: 10; overflow-y: auto;
+            z-index: 10; 
             display: flex; flex-direction: column;
+            justify-content: space-between; /* 确保内容和底部按钮撑开 */
         }
 
         .avatar { width: 90px; height: 90px; border-radius: 50%; background: #fff; margin-bottom: 25px; overflow: hidden; border: 2px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
@@ -46,44 +49,44 @@
         .profile h1 { font-family: 'Noto Serif SC', serif; font-size: 2.1rem; margin-bottom: 8px; letter-spacing: -1px; }
         .tagline { font-size: 0.8rem; color: var(--accent); font-weight: 600; margin-bottom: 35px; letter-spacing: 2px; }
 
-        .meta-info { margin-bottom: 35px; }
-        .meta-item { margin-bottom: 18px; }
-        .meta-label { font-size: 0.7rem; color: #aaa; text-transform: uppercase; display: block; margin-bottom: 4px; letter-spacing: 1px; }
-        .meta-value { font-size: 0.9rem; font-weight: 600; color: var(--text-main); }
+        .meta-info { margin-bottom: 30px; }
+        .meta-item { margin-bottom: 15px; }
+        .meta-label { font-size: 0.65rem; color: #aaa; text-transform: uppercase; display: block; margin-bottom: 2px; letter-spacing: 1px; }
+        .meta-value { font-size: 0.85rem; font-weight: 600; color: var(--text-main); }
 
-        .nav-menu { list-style: none; margin-bottom: 45px; }
-        .nav-menu li { margin-bottom: 15px; }
-        .nav-menu a { text-decoration: none; font-size: 0.8rem; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; }
+        .nav-menu { list-style: none; margin-bottom: 35px; }
+        .nav-menu li { margin-bottom: 12px; }
+        .nav-menu a { text-decoration: none; font-size: 0.75rem; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; }
         .nav-menu a:hover { color: var(--accent); padding-left: 8px; }
 
-        /* 下载 PDF 按钮样式 */
+        /* 下载按钮：移动至底部并应用紫红渐变 */
         .download-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--text-main);
+            background: var(--gradient-primary);
             color: #fff;
             text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 6px;
+            padding: 14px;
+            border-radius: 8px;
             font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 40px;
-            transition: 0.3s cubic-bezier(0.2, 1, 0.3, 1);
-            border: 1px solid var(--text-main);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.2);
+            margin-top: 20px;
         }
         .download-btn:hover {
-            background: transparent;
-            color: var(--text-main);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(179, 58, 42, 0.3);
+            filter: brightness(1.1);
         }
         .download-btn svg { margin-right: 10px; }
 
-        .skill-group { margin-bottom: 30px; }
-        .skill-title { font-size: 0.7rem; font-weight: 700; color: #bbb; margin-bottom: 12px; display: block; letter-spacing: 1px; }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-        .tag { background: #fff; padding: 3px 10px; border-radius: 4px; font-size: 0.75rem; color: var(--text-sub); border: 1px solid rgba(0,0,0,0.05); }
+        .skill-group { margin-bottom: 25px; }
+        .skill-title { font-size: 0.65rem; font-weight: 700; color: #bbb; margin-bottom: 10px; display: block; letter-spacing: 1px; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .tag { background: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; color: var(--text-sub); border: 1px solid rgba(0,0,0,0.04); }
 
         main { width: 70%; margin-left: 30%; padding: 60px 8%; }
         section { margin-bottom: 100px; }
@@ -121,7 +124,7 @@
         .gallery-item img { width: 100%; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
         .gallery-desc { font-size: 0.85rem; color: var(--text-sub); border-left: 2px solid var(--accent); padding-left: 15px; }
 
-        .contact-info { font-size: 0.75rem; color: #bbb; margin-top: auto; padding-top: 30px; }
+        .contact-info { font-size: 0.7rem; color: #ccc; padding-top: 20px; border-top: 1px solid #f5f5f5; margin-top: 20px; }
 
         @media (max-width: 1024px) {
             aside { width: 100%; position: relative; height: auto; padding: 40px 20px; }
@@ -136,7 +139,7 @@
 
 <div class="container">
     <aside>
-        <div>
+        <div class="aside-top">
             <div class="avatar"><img src="avatar.jpg" alt="刘凌浩"></div>
             <h1>刘凌浩</h1>
             <p class="tagline">BRAND STRATEGIST</p>
@@ -148,7 +151,7 @@
                 </div>
                 <div class="meta-item">
                     <span class="meta-label">Keywords</span>
-                    <span class="meta-value">品牌系统 / 数字化 / 文化创新</span>
+                    <span class="meta-value">品牌策划 / 数字化 / 文化创新</span>
                 </div>
                 <div class="meta-item">
                     <span class="meta-label">Education</span>
@@ -156,15 +159,10 @@
                 </div>
             </div>
 
-            <a href="resume.pdf" download="刘凌浩-个人简历.pdf" class="download-btn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                下载 PDF 简历
-            </a>
-
             <ul class="nav-menu">
-                <li><a href="#advantage">核心优势</a></li>
-                <li><a href="#experience">履迹 / Exp</a></li>
-                <li><a href="#projects">案例 / Case</a></li>
+                <li><a href="#advantage">核心优势 / Proposition</a></li>
+                <li><a href="#experience">履迹 / Footprints</a></li>
+                <li><a href="#projects">案例 / Archives</a></li>
             </ul>
 
             <div class="skill-group">
@@ -176,9 +174,15 @@
             </div>
         </div>
 
-        <div class="contact-info">
-            📍 中国·苏州 | 182 5111 2006<br>
-            📧 liu_linghao@sina.com
+        <div class="aside-bottom">
+            <a href="resume.pdf" download="刘凌浩-品牌策划简历.pdf" class="download-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                PDF 简历下载
+            </a>
+            <div class="contact-info">
+                📍 中国·苏州 | 182 5111 2006<br>
+                📧 liu_linghao@sina.com
+            </div>
         </div>
     </aside>
 
@@ -193,15 +197,15 @@
                     </div>
                     <div class="adv-item">
                         <strong>跨行业内容洞察</strong>
-                        <p>在生物医药、智慧安防等高门槛领域，能快速拆解技术核心，转化为具备传播力的学术故事。</p>
+                        <p>在高门槛领域，能快速拆解技术内核，转化为具备传播力的学术故事或营销内容。</p>
                     </div>
                     <div class="adv-item">
                         <strong>数字化营销经验</strong>
-                        <p>深度运营全媒体矩阵，通过 SEO/SEM 优化及高质量内容产出，显著提升搜索能见度与获客线索。</p>
+                        <p>深度运营全媒体矩阵，通过 SEO/SEM 优化及高质量内容产出，显著提升搜索能见度。</p>
                     </div>
                     <div class="adv-item">
                         <strong>大型项目策划与落地</strong>
-                        <p>统筹特装展会及全国巡展，具备极强的多方协作能力，确保品牌在复杂触点下的高水准输出。</p>
+                        <p>统筹特装展会及全国巡展，具备极强的多方协作能力，确保品牌标准化输出。</p>
                     </div>
                 </div>
             </div>
@@ -215,15 +219,40 @@
                         <span class="company-name">江苏艾玮得生物科技有限公司</span>
                         <span class="duration">2023.05 - 至今</span>
                     </div>
-                    <div class="job-role">品宣经理</div>
+                    <div class="job-role">品宣经理 | 汇报对象：营销总监</div>
                     <ul class="duty-list">
-                        <li>发掘并精准定位企业传播亮点，确立品牌核心发展方针。</li>
-                        <li>拓展全媒体矩阵，维护行业学会关系，显著提高品牌认知度。</li>
-                        <li>内容主题规划和关键词优化（SEO），确保专业内容持续输出。</li>
-                        <li>制定年度活动计划，有效探索和挖掘潜在销售线索。</li>
+                        <li>发掘并精准定位企业传播亮点，确立品牌核心发展方针。策划实施全面品牌建设计划。</li>
+                        <li>拓展全媒体矩阵，维护及加深与行业学会及媒体合作关系，显著提高公司品牌认知度。</li>
+                        <li>进行内容主题规划和关键词优化（SEO），确保专业性内容的持续、稳定输出。</li>
+                        <li>制定年度活动计划，结合品牌推广活动与学术活动，有效探索和挖掘潜在销售线索。</li>
+                        <li>更新视觉识别系统（VIS），负责落实展厅设计、产品包装美学体系，提升终端触点质感。</li>
                     </ul>
                 </div>
+                <div class="exp-block">
+                    <div class="exp-title-row">
+                        <span class="company-name">诺一迈尔(苏州)医学科技有限公司</span>
+                        <span class="duration">2021.03 - 2023.05</span>
+                    </div>
+                    <div class="job-role">品牌企划负责人</div>
+                    <ul class="duty-list">
+                        <li>0-1 打造高端品牌形象，建立完整视觉识别系统（VIS）及各类应用标准。</li>
+                        <li>构建以价值观为核心的企业文化体系，编写并宣贯企业文化手册。</li>
+                        <li>策划组织超 500 人规模年会及团建，建立员工荣誉与文化积分激励体系。</li>
+                    </ul>
                 </div>
+                <div class="exp-block">
+                    <div class="exp-title-row">
+                        <span class="company-name">苏州科达科技股份有限公司</span>
+                        <span class="duration">2012.02 - 2019.02</span>
+                    </div>
+                    <div class="job-role">活动策划经理</div>
+                    <ul class="duty-list">
+                        <li>负责每年 3 场以上大型特装展会及海外展会全案策划执行。</li>
+                        <li>统筹全国行业会议巡展，协调 27 家分公司资源，确保品牌标准化输出。</li>
+                        <li>管理媒体公关关系，通过深度发稿与人物采访提升企业行业专家形象。</li>
+                    </ul>
+                </div>
+            </div>
         </section>
 
         <section id="projects">
@@ -240,12 +269,12 @@
                     <div class="gallery-container">
                         <div class="gallery-item">
                             <img src="web-main.jpg" alt="官网首页">
-                            <div class="gallery-desc"><strong>视觉与SEO：</strong>将严谨的技术语言转化为数字化品牌叙事。</div>
+                            <div class="gallery-desc"><strong>视觉与SEO：</strong>将技术语言转化为品牌叙事，大幅提升行业影响力。</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+            </section>
     </main>
 </div>
 
