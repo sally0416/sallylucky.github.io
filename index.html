@@ -15,12 +15,14 @@
             --gradient-glass: linear-gradient(135deg, rgba(138, 43, 226, 0.12) 0%, rgba(179, 58, 42, 0.12) 100%);
             --glow-1: rgba(179, 58, 42, 0.15); 
             --glow-2: rgba(138, 43, 226, 0.08);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; font-size: 16px; }
         body { font-family: 'Inter', 'PingFang SC', sans-serif; background: var(--bg-main); color: var(--text-main); line-height: 1.8; overflow-x: hidden; }
 
+        /* 弥散背景 */
         #interactive-bg {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: -1; pointer-events: none;
@@ -30,18 +32,15 @@
                         transparent 100%);
         }
 
-        .container { display: flex; min-height: 100vh; flex-direction: row; }
+        .container { display: flex; min-height: 100vh; }
         
-        /* --- 侧边栏基础样式 --- */
+        /* --- 侧边栏 --- */
         aside {
             width: 32%; padding: 50px; position: fixed; height: 100vh;
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(30px); border-right: 1px solid rgba(0,0,0,0.03);
             z-index: 10; display: flex; flex-direction: column; overflow-y: auto;
         }
-
-        aside::-webkit-scrollbar { width: 6px; }
-        aside::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.1); border-radius: 10px; }
 
         .aside-content { flex: 1; }
 
@@ -59,13 +58,14 @@
 
         .nav-menu { list-style: none; margin-bottom: 35px; }
         .nav-menu li { margin-bottom: 10px; }
-        .nav-menu a { text-decoration: none; font-size: 0.75rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; }
-        .nav-menu a:hover { color: var(--accent); padding-left: 5px; }
+        .nav-menu a { text-decoration: none; font-size: 0.75rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 1.5px; transition: var(--transition); }
+        .nav-menu a:hover { color: var(--accent); padding-left: 8px; }
 
         .skill-group { margin-bottom: 25px; }
         .skill-title { font-size: 0.65rem; font-weight: 700; color: #bbb; margin-bottom: 10px; display: block; text-transform: uppercase; }
         .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-        .tag { background: #fff; padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; color: var(--text-sub); border: 1px solid rgba(0,0,0,0.04); }
+        .tag { background: #fff; padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; color: var(--text-sub); border: 1px solid rgba(0,0,0,0.04); transition: var(--transition); }
+        .tag:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
         .aside-footer { margin-top: 30px; padding-top: 25px; border-top: 1px solid #f5f5f5; }
         .contact-info { font-size: 0.75rem; color: #999; line-height: 1.8; margin-bottom: 20px; }
@@ -75,74 +75,60 @@
             min-width: 160px; background: var(--gradient-glass); backdrop-filter: blur(10px);
             color: var(--accent); text-decoration: none; padding: 10px 20px; border-radius: 8px;
             font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(179, 58, 42, 0.1);
-            transition: 0.3s; animation: breathe 4s infinite ease-in-out;
+            transition: var(--transition); animation: breathe 4s infinite ease-in-out;
         }
+        .download-btn:hover { background: #fff; transform: translateY(-3px); border-color: var(--accent); }
 
-        @keyframes breathe {
-            0%, 100% { box-shadow: 0 4px 15px rgba(179, 58, 42, 0.05); }
-            50% { box-shadow: 0 8px 25px rgba(138, 43, 226, 0.12); }
-        }
-
-        /* --- 主内容区 --- */
-        main { width: 68%; margin-left: 32%; padding: 60px 8%; transition: all 0.3s; }
+        /* --- 主内容区交互增强 --- */
+        main { width: 68%; margin-left: 32%; padding: 60px 8%; }
         section { margin-bottom: 80px; }
-        h2 { font-family: 'Noto Serif SC', serif; font-size: 1.4rem; margin-bottom: 35px; color: #333; display: flex; align-items: center; }
-        h2::before { content: ''; width: 25px; height: 2px; background: var(--accent); margin-right: 15px; }
 
+        /* 标题动态 */
+        h2 { font-family: 'Noto Serif SC', serif; font-size: 1.4rem; margin-bottom: 35px; color: #333; display: flex; align-items: center; transition: var(--transition); }
+        h2::before { content: ''; width: 25px; height: 2px; background: var(--accent); margin-right: 15px; transition: var(--transition); }
+        section:hover h2 { transform: translateX(10px); color: var(--accent); }
+        section:hover h2::before { width: 40px; }
+
+        /* 卡片动态：上浮效果 */
         .glass-card {
             background: var(--bg-card); padding: 40px; border-radius: 12px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.03); border: 1px solid rgba(255,255,255,0.8);
-            margin-bottom: 35px;
+            margin-bottom: 35px; transition: var(--transition);
+            position: relative; top: 0;
+        }
+        .glass-card:hover { 
+            top: -10px; /* 修复项：鼠标划过上浮 */
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08); 
+            border: 1px solid rgba(179, 58, 42, 0.1);
         }
 
         .advantage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .adv-item { transition: var(--transition); }
+        .adv-item:hover { transform: scale(1.02); }
         .adv-item strong { display: block; font-size: 1rem; margin-bottom: 8px; color: var(--accent); }
         .adv-item p { font-size: 0.85rem; color: var(--text-sub); }
 
-        .exp-block { margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px dashed #eee; }
-        .exp-block:last-child { border-bottom: none; }
-        .exp-title-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; }
+        .exp-block { margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px dashed #eee; transition: var(--transition); border-left: 0px solid var(--accent); padding-left: 0; }
+        .exp-block:hover { border-left: 4px solid var(--accent); padding-left: 20px; border-bottom-style: solid; }
+        .exp-title-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; }
         .company-name { font-size: 1.1rem; font-weight: 700; }
         .duration { font-size: 0.8rem; color: #bbb; }
         .job-role { font-size: 0.9rem; color: #444; font-weight: 600; margin: 8px 0; }
         .duty-list li { font-size: 0.9rem; color: var(--text-sub); margin-bottom: 10px; margin-left: 18px; }
 
-        .case-card { background: #fff; border-radius: 12px; margin-bottom: 25px; border: 1px solid rgba(0,0,0,0.04); overflow: hidden; }
-        .case-header { padding: 20px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-        .case-details { max-height: 0; overflow: hidden; transition: max-height 0.6s ease; background: #fafafa; }
-        .case-card.active .case-details { max-height: 1500px; }
-        .gallery-container { padding: 25px; }
-        .gallery-item img { width: 100%; border-radius: 6px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-
-        /* --- 重要：手机端适配关键代码 (Media Queries) --- */
         @media (max-width: 1024px) {
             .container { flex-direction: column; }
-            
-            aside {
-                width: 100%; height: auto; position: relative; padding: 40px 30px;
-                border-right: none; border-bottom: 1px solid rgba(0,0,0,0.05);
-            }
-
+            aside { width: 100%; height: auto; position: relative; padding: 40px 30px; border-right: none; }
             main { width: 100%; margin-left: 0; padding: 40px 25px; }
-
-            .profile-header { flex-direction: column; text-align: center; gap: 15px; }
-            .name-box h1 { font-size: 1.8rem; }
-
-            .advantage-grid { grid-template-columns: 1fr; gap: 20px; }
-
-            .aside-footer { text-align: center; }
-            .download-btn { width: 80%; margin: 0 auto; }
-            
-            .exp-title-row { flex-direction: column; }
-            .duration { margin-top: -5px; margin-bottom: 5px; }
+            .profile-header { flex-direction: column; text-align: center; }
+            .advantage-grid { grid-template-columns: 1fr; }
+            .download-btn { width: 80%; margin: 0 auto; display: flex; }
+            section:hover h2 { transform: none; }
         }
 
-        /* 针对超小屏幕（文字自动缩小） */
-        @media (max-width: 480px) {
-            html { font-size: 14px; }
-            .glass-card { padding: 25px; }
-            h2 { font-size: 1.2rem; }
-            .company-name { font-size: 1rem; }
+        @keyframes breathe {
+            0%, 100% { box-shadow: 0 4px 15px rgba(179, 58, 42, 0.05); }
+            50% { box-shadow: 0 8px 25px rgba(138, 43, 226, 0.12); }
         }
     </style>
 </head>
@@ -209,19 +195,19 @@
                 <div class="advantage-grid">
                     <div class="adv-item">
                         <strong>全链路品牌构建能力</strong>
-                        <p>擅长从 0-1 搭建品牌视觉识别系统及企业文化体系，将战略定位精准转化为高效内容表达。</p>
+                        <p>擅长从 0-1 搭建品牌视觉识别系统及企业文化体系。</p>
                     </div>
                     <div class="adv-item">
                         <strong>深厚行业洞察力</strong>
-                        <p>在生物医药、智慧安防等高门槛领域，能快速拆解技术内核，转化为传播力强的学术故事。</p>
+                        <p>在生物医药、智慧安防等高门槛领域，能快速拆解技术内核。</p>
                     </div>
                     <div class="adv-item">
                         <strong>数字化内容驱动</strong>
-                        <p>深度运营全媒体矩阵，通过关键词优化（SEO）与高质量内容产出，显著提升品牌曝光。</p>
+                        <p>通过 SEO 与高质量内容产出，显著提升品牌搜索能见度。</p>
                     </div>
                     <div class="adv-item">
                         <strong>大型项目整合执行</strong>
-                        <p>统筹特装展会及全国行业巡展，具备极强的多方协作与资源整合能力。</p>
+                        <p>统筹特装展会及全国行业巡展，具备极强的多方协作能力。</p>
                     </div>
                 </div>
             </div>
@@ -238,10 +224,8 @@
                     <div class="job-role">品宣经理 | 汇报对象：营销总监</div>
                     <ul class="duty-list">
                         <li>发掘并定位企业传播亮点，策划实施全面品牌建设计划，刷新形象识别系统。</li>
-                        <li>拓展全媒体矩阵（公众号、视频号、知乎、B站等），显著提高品牌认知度。</li>
+                        <li>拓展全媒体矩阵（公众号、视频号、知乎、B站等），提高品牌认知度。</li>
                         <li>进行内容主题规划和关键词优化（SEO），确保专业内容稳定输出。</li>
-                        <li>制定年度活动计划，挖掘潜在销售线索，探索学术与品牌结合的新路径。</li>
-                        <li>负责落实展厅设计、产品包装美学体系，提升终端触点质感。</li>
                     </ul>
                 </div>
                 <div class="exp-block">
@@ -252,28 +236,8 @@
                     <div class="job-role">品牌企划负责人</div>
                     <ul class="duty-list">
                         <li>0-1 打造公司高端品牌形象，建立完整视觉识别系统（VIS）。</li>
-                        <li>构建以价值观为核心的企业文化体系，编写宣贯手册，建立荣誉激励体系。</li>
+                        <li>构建企业文化体系，编写宣贯手册，建立激励体系。</li>
                     </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects">
-            <h2>作品精选 / Archives</h2>
-            <div class="case-card">
-                <div class="case-header" onclick="toggleCase(this)">
-                    <div>
-                        <p style="font-size: 1.05rem; font-weight: 700;">官方网站 0-1 深度构建</p>
-                        <span style="font-size: 0.75rem; color: #aaa;">DIGITAL EXPERIENCE</span>
-                    </div>
-                    <span>▾</span>
-                </div>
-                <div class="case-details">
-                    <div class="gallery-container">
-                        <div class="gallery-item">
-                            <img src="web-main.jpg" alt="官网首页">
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -281,15 +245,29 @@
 </div>
 
 <script>
+    // 修复项 2：强制页面加载时回到顶部
+    window.onload = function() {
+        setTimeout(function() {
+            window.scrollTo(0, 0);
+        }, 10);
+    };
+
     document.addEventListener('mousemove', (e) => {
         if (window.innerWidth > 1024) {
             document.body.style.setProperty('--mouse-x', e.clientX + 'px');
             document.body.style.setProperty('--mouse-y', e.clientY + 'px');
         }
     });
-    function toggleCase(header) {
-        header.parentElement.classList.toggle('active');
-    }
+
+    // 监听导航点击，平滑滚动（可选增强）
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
 </script>
 
 </body>
